@@ -15,7 +15,7 @@ public class StartMenu {
 	
 	public void menuFrame(){
 		
-		JFrame menuFrame = new JFrame("Dreamless");
+		final JFrame menuFrame = new JFrame("Dreamless");
 		menuFrame.setLayout(new BorderLayout());
 		
 		JPanel menuPanel = new JPanel();
