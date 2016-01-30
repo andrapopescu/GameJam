@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -46,33 +48,117 @@ public class NoiseLevel {
 		noises.add("Towel");
 		noises.add("Phone");
 
-		JButton choice1 = new JButton(noises.get(0));
-		buttonPanel.add(choice1);
-		JButton choice2 = new JButton(noises.get(1));
-		buttonPanel.add(choice2);
-		JButton choice3 = new JButton(noises.get(2));
-		buttonPanel.add(choice3);
-		JButton choice4 = new JButton(noises.get(3));
-		buttonPanel.add(choice4);
-		JButton choice5 = new JButton(noises.get(4));
-		buttonPanel.add(choice5);
-		JButton choice6 = new JButton(noises.get(5));
-		buttonPanel.add(choice6);
+		ArrayList<String> theNoises = new ArrayList<String>();
+		theNoises.add(noises.get(0));
+		theNoises.add(noises.get(1));
+		theNoises.add(noises.get(2));
+		theNoises.add(noises.get(5));
 
+		ArrayList<String> clickedNoises = new ArrayList<String>();
+
+		JButton choice1 = new JButton(noises.get(0));
+		choice1.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				clickedNoises.add(choice1.getText());
+			}
+
+		});
+		buttonPanel.add(choice1);
+
+		JButton choice2 = new JButton(noises.get(1));
+		choice2.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				clickedNoises.add(choice2.getText());
+			}
+
+		});
+		buttonPanel.add(choice2);
+
+		JButton choice3 = new JButton(noises.get(2));
+		choice3.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				clickedNoises.add(choice3.getText());
+			}
+
+		});
+		buttonPanel.add(choice3);
+
+		JButton choice4 = new JButton(noises.get(3));
+		choice4.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				JFrame quiteFrame = new JFrame();
+				JOptionPane.showMessageDialog(quiteFrame, "That's a quiet item!");
+			}
+
+		});
+		buttonPanel.add(choice4);
+
+		JButton choice5 = new JButton(noises.get(4));
+		choice5.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				JFrame quiteFrame = new JFrame();
+				JOptionPane.showMessageDialog(quiteFrame, "That's a quiet item!");
+			}
+
+		});
+		buttonPanel.add(choice5);
+
+		JButton choice6 = new JButton(noises.get(5));
+		choice6.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				clickedNoises.add(choice6.getText());
+			}
+
+		});
+		buttonPanel.add(choice6);
+		
+		
 
 		JPanel arrowPanel = new JPanel();
 		arrowPanel.setLayout(new BorderLayout());
 		g.gridy = 2;
-		mainPanel.add(arrowPanel,g);
-		
+		mainPanel.add(arrowPanel, g);
+
 		JButton arrowLeft = new JButton();
 		try {
 			Image img = ImageIO.read(getClass().getResource("arrowleft.png"));
 			arrowLeft.setIcon(new ImageIcon(img));
 		} catch (IOException ex) {
 		}
-		
+
 		arrowPanel.add(arrowLeft, BorderLayout.WEST);
+
+		JButton checkButton = new JButton("Check");
+		checkButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				
+				int count = 0;
+				
+				for(int i=0; i < clickedNoises.size(); i++){
+					if(theNoises.contains(clickedNoises.get(i))){
+						count++;
+					}
+				}
+				JFrame winFrame = new JFrame();
+				if(count == 4){
+					JOptionPane.showMessageDialog(winFrame, "Well done!");
+					clickedNoises.clear();
+				}
+				else{
+					JOptionPane.showMessageDialog(winFrame, "Wrong!");
+					clickedNoises.clear();
+				}
+			}
+
+		});
+		arrowPanel.add(checkButton, BorderLayout.CENTER);
 		
 		JButton arrowRight = new JButton();
 		try {
@@ -80,7 +166,7 @@ public class NoiseLevel {
 			arrowRight.setIcon(new ImageIcon(img));
 		} catch (IOException ex) {
 		}
-	
+
 		arrowPanel.add(arrowRight, BorderLayout.EAST);
 
 		noiseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
