@@ -90,6 +90,5 @@ public class NoiseLevel {
 		noiseFrame.setLocationRelativeTo(null);
 		noiseFrame.setBackground(Color.BLACK);
 		noiseFrame.setVisible(true);
-
 	}
 }
